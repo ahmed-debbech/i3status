@@ -263,6 +263,15 @@ typedef struct {
     yajl_gen json_gen;
     char *buf;
     const size_t buflen;
+    const char *format;
+} program_ctx_t;
+
+void print_program(program_ctx_t *ctx);
+
+typedef struct {
+    yajl_gen json_gen;
+    char *buf;
+    const size_t buflen;
     int number;
     const char *path;
     const char *format;

@@ -430,6 +430,15 @@ int main(int argc, char *argv[]) {
         CFG_CUSTOM_SEP_BLOCK_WIDTH_OPT,
         CFG_END()};
 
+    cfg_opt_t program_opts[] = {
+        CFG_STR("format", "%out", CFGF_NONE),
+        CFG_CUSTOM_ALIGN_OPT,
+        CFG_CUSTOM_COLOR_OPTS,
+        CFG_CUSTOM_MIN_WIDTH_OPT,
+        CFG_CUSTOM_SEPARATOR_OPT,
+        CFG_CUSTOM_SEP_BLOCK_WIDTH_OPT,
+        CFG_END()};
+
     cfg_opt_t volume_opts[] = {
         CFG_STR("format", "♪: %volume", CFGF_NONE),
         CFG_STR("format_muted", "♪: 0%%", CFGF_NONE),
@@ -465,6 +474,7 @@ int main(int argc, char *argv[]) {
         CFG_SEC("battery", battery_opts, CFGF_TITLE | CFGF_MULTI),
         CFG_SEC("cpu_temperature", temp_opts, CFGF_TITLE | CFGF_MULTI),
         CFG_SEC("disk", disk_opts, CFGF_TITLE | CFGF_MULTI),
+        CFG_SEC("program", program_opts, CFGF_NONE),
         CFG_SEC("volume", volume_opts, CFGF_TITLE | CFGF_MULTI),
         CFG_SEC("ipv6", ipv6_opts, CFGF_NONE),
         CFG_SEC("time", time_opts, CFGF_NONE),
@@ -799,6 +809,19 @@ int main(int argc, char *argv[]) {
                     .low_threshold = cfg_getfloat(sec, "low_threshold"),
                 };
                 print_disk_info(&ctx);
+                SEC_CLOSE_MAP;
+            }
+
+            CASE_SEC_TITLE("program") {
+                SEC_OPEN_MAP("program");
+                program_ctx_t ctx = {
+                    .json_gen = json_gen,
+                    .buf = buffer,
+                    .buflen = sizeof(buffer),
+                    .format = cfg_getstr(sec, "format")
+                };
+                printf("fff %s\n", ctx.buf);
+                print_program(&ctx);
                 SEC_CLOSE_MAP;
             }
 
