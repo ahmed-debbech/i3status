@@ -1,5 +1,9 @@
 # i3status
 
+## Why forking?
+To add a module that can run any program/script everytime i3statusbar loads to print text in the bar \
+You can for example add this module to run a script that scraps and API to get a basketball match result and print it \
+
 ## Description
 
 i3status is a small program for generating a status bar for i3bar, dzen2, xmobar
